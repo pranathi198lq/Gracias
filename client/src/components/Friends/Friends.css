@@ -1,0 +1,16 @@
+.sideItem{
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.sideimg{
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.sideName{
+    font-family: "Open Sans", sans-serif;
+    font-size: 17px;
+}

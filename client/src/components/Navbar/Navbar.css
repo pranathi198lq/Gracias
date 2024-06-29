@@ -1,0 +1,106 @@
+.navbar{
+    height: 50px;
+  width: 100%;
+  background-color: rgb(221, 142, 252);
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+.navleft{
+    flex: 3;
+}
+.navleft img{
+    padding-top: 7px;
+    height: 40px;
+    padding-left: 100px;
+}
+.logo{
+    font-size: 35px;
+    font-family: "Open Sans", sans-serif;
+  font-weight: bold;
+  color: rgb(248, 244, 248);
+  cursor: pointer;
+  align-items: center;
+  padding-bottom: 7px;
+}
+
+.center{
+    flex: 5;
+}
+.search{
+    width: 100%;
+    height: 30px;
+    background-color: rgb(248, 244, 248);
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+}
+.searchIcon{
+    font-size: 20px !important;
+  margin-left: 10px;
+}
+.searchInput {
+    border: none;
+    width: 70%;
+}
+  
+.searchInput:focus {
+    outline: none;
+}
+.navright{
+    flex: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: white;
+}
+.navlink{
+    margin-right: 10px;
+  font-size: 17px;
+  font-family: "Open Sans", sans-serif;
+  color:rgb(248, 244, 248);
+  font-weight: 600;
+  cursor: pointer;
+}
+.icons{
+    display: flex;
+}
+.iconitem{
+    margin-right: 15px;
+  cursor: pointer;
+  position: relative;
+}
+.iconCount{
+    width: 15px;
+  height: 15px;
+  background-color: red;
+  border-radius: 50%;
+  color: white;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+.pp{
+    padding-left: 6px;
+    width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+.navSignOut{
+  background-color: rgba(128, 0, 128, 0.568);
+  border: none;
+  color: white;
+  border-radius: 5px;
+  margin-left: 15px;
+  cursor: pointer;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+}
