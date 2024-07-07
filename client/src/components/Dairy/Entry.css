@@ -1,0 +1,71 @@
+.entry {
+    width: 100%;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+    box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+    margin: 30px 0;
+    background-color: #fff; /* Example background color */
+}
+
+.entryWrapper {
+    padding: 10px;
+}
+
+.entryTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.entryTopLeft {
+    display: flex;
+    align-items: center;
+}
+
+
+.entryName {
+    font-size: 18px;
+    font-weight: 600;
+    font-family: "Open Sans", sans-serif;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.entryDate {
+    font-size: 14px;
+    margin-left: auto;    
+}
+
+.expandIcon {
+    cursor: pointer;
+}
+.entryCenter {
+    margin: 20px 10px;
+    /* max-height: 120px;
+    position: sticky;
+    overflow-y: auto; */
+}
+
+::-webkit-scrollbar{
+    width: 5px;
+}
+::-webkit-scrollbar-track{
+    background-color: #f1f1f1;
+}
+::-webkit-scrollbar-thumb{
+    background-color: rgb(188, 187, 189);
+    height: 200px;
+}
+
+.entryText {
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+}
+
+.entryBottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+    border-top: 1px solid #ccc; /* Example border */
+}
