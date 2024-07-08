@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import './Navbar.css'
-import { Search , Person, Chat, Notifications} from '@mui/icons-material'
+import { Search , Chat} from '@mui/icons-material'
 import {Link} from "react-router-dom";
 import {AuthContext} from "../../context/AuthContext"
 import { logout } from '../../apiCalls';
@@ -31,24 +31,23 @@ export default function Navbar() {
         </div>
         <div className="navright">
           <div className="links">
+            <Link to={"/"} style={{textDecoration: "none", color: "black", alignContent: "center", display: "flex"}}>
             <span className="navlink">Home</span>
+            </Link>
+            <Link to={"/profile/"+user.username} style={{textDecoration: "none", color: "black", alignContent: "center", display: "flex"}}>
             <span className="navlink">Timeline</span>
+            </Link>
           </div>
           <div className="icons">
+            <div className="iconcenter">
             <div className="iconitem">
-              <Person/>
-              <span className="iconCount">1</span>
-            </div>
-            <div className="iconitem">
+              <Link to={"/chats"} style={{color: "white"}}>
               <Chat/>
-              <span className="iconCount">1</span>
+              </Link>
             </div>
-            <div className="iconitem">
-              <Notifications/>
-              <span className="iconCount">1</span>
             </div>
             <Link to={`/profile/${user.username}`}>
-            <img src={user.profilePicture ? PF+user.profilePicture : PF+"noPP.jpeg"} alt="" className='pp'/>
+            <img src={user.profilePicture? PF+user.profilePicture : PF+"noPP.jpeg"} alt="" className='pp'/>
             </Link>
             <button className="navSignOut" onClick={handleNavSignOut}>Sign Out</button>
           </div>
