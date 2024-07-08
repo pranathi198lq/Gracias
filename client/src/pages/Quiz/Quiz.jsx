@@ -52,16 +52,23 @@ const Quiz = () => {
       }
     };
   
+ 
     if (questions.length === 0) {
-      return <div className='quiz-loading'>Random Quiz is Generating...</div>;
+      return(
+        <>
+        <Navbar/>
+        <div className="quiz-main">
+          <Sidebar/>
+          <div className="quiz-container">            
+          <div className='quiz-loading'>Random Quiz is Generating...</div>;
+          </div>
+        </div>
+        </>
+      )
     }
   
     if (quizCompleted) {
       return (
-        // <div className="quiz-completed">
-        //   <h2>Quiz Completed</h2>
-        //   <p className="score">Your score: {score}/{questions.length}</p>
-        // </div>
         <>
         <Navbar/>
         <div className="quiz-main">
