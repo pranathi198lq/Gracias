@@ -37,11 +37,13 @@
 }
 .dayText{
     font-size: 24px;
-    font-family: "Open Sans", sans-serif;
+    font-family:"Open Sans", sans-serif;;
     font-weight: 500;
     justify-content: center;
     padding-bottom: 14px;
     color: black;
+    text-decoration: wavy;
+
 }
 .dayImg{
     width: 100%;
@@ -135,4 +137,23 @@
   }
   .rightFollow:focus{
     outline: none;
+  }
+
+  .quote{
+    font-family: cursive;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    font-weight: 400;
+  }
+
+  .quoteButton{
+    border-radius: 12%;
+    font-weight: 500;
+    color: white;
+    background-color: violet;
+    border: none;
+    padding: 6px;
+    width: 100px;
+    cursor: pointer;
   }
