@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, useRef } from 'react'
 import './Post.css'
-import { MoreVert, FavoriteBorder, Favorite, BookmarkBorder, Bookmark } from '@mui/icons-material'
+import { FavoriteBorder, Favorite, BookmarkBorder, Bookmark, Edit, Delete, PermMedia} from '@mui/icons-material'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 // import {format} from "timeago.js"
@@ -17,6 +17,10 @@ export default function Post({ post }) {
     const [isLiked, setLiked] = useState(false);
     const [user, setUser] = useState({});
     const {user: currUser} = useContext(AuthContext); //already another user here so make it currUser, currUSer is a nickname of the user
+    const [isEditing, setIsEditing] = useState(false);
+    const desc = useRef();
+    const [imagePreview, setImagePreview] = useState("");
+    
 
     //after refreshing, when we are liking it, it can show the respnse of the like in inspect network as post has been disliked because we liked it before the page refresh
     //we need to use useEffect for this:
@@ -50,6 +54,52 @@ export default function Post({ post }) {
         setSaved(!isSaved)
     }
 
+    const deleteHandler = async () => {
+        try {
+            await axios.delete(`/posts/${post._id}`, { data: { userId: currUser._id } });
+            window.location.reload();
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    // const updateHandler = async () => {
+    //     const updatedPost = { ...post, desc: "Updated Description" }; // Example update
+    //     try {
+    //         await axios.put(`/posts/${post._id}`, updatedPost);
+    //         window.location.reload();
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // };
+
+    const updateHandler = async (e) => {
+        e.preventDefault();
+        const updatedPost = {
+            userId: currUser._id,
+            desc: desc.current.value,
+        };
+        if (imagePreview) {
+            updatedPost.img = imagePreview; // Add logic to upload image and get URL
+        }
+        try {
+            await axios.put(`/posts/${post._id}`, updatedPost);
+            window.location.reload();
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setImagePreview(reader.result);
+        };
+        reader.readAsDataURL(file);
+    };
+
+    
     
     return (
         <div className='post'>
@@ -64,9 +114,12 @@ export default function Post({ post }) {
                         {/* <span className="postDate">{format(post.createdAt)}</span>  */}
                         {/* post.date is used for dummy date */}
                     </div>
-                    <div className="postTopRight">
-                        <MoreVert />
-                    </div>
+                    {post.userId === currUser._id && (
+                        <div className="postTopRight">
+                            <Edit htmlColor='gray' className="postIcon" onClick={() => setIsEditing(true)} />
+                            <Delete htmlColor='gray' className="postIcon" onClick={deleteHandler} />
+                        </div>
+                    )}
                 </div>
                 <div className="postCenter">
                     <span className="postText">{post?.desc}</span> {/* ?- if post doesnt have any desc*/}
@@ -89,6 +142,34 @@ export default function Post({ post }) {
                     <div className="postBottomRight">{post.comment} comments</div>
                 </div>
             </div>
+            {isEditing && (
+                <div className='sharecont'>
+                    <div className="sharewrapper">
+                        <div className="sharetop">
+                            <img src={user.profilePicture ? PF + user.profilePicture : PF + "noPP.jpeg"} alt="" className='sharepp' />
+                            <input placeholder='Update your Thoughts' className='shareinput' ref={desc} defaultValue={post.desc} />
+                        </div>
+                        <hr className="sharehr" />
+                        <form className="sharebottom" onSubmit={updateHandler}>
+                            <div className="options">
+                                <label htmlFor='file' className="opt">
+                                    <PermMedia htmlColor='tomato' className='shareicon' />
+                                    <span className="sharetext">Photo or Video</span>
+                                    <input style={{ display: "none" }} type="file" id='file' accept='.png, .jpeg, .jpg' onChange={handleFileChange} />
+                                </label>
+                                
+                            </div>
+                            <button className="sharebutton" type='submit'>Update</button>
+                        </form>
+                        {imagePreview && (
+                            <div className="shareImgContainer">
+                                <img src={imagePreview} alt="Selected" className="shareImg" />
+                                <button className="shareCancelImg" onClick={() => setImagePreview("")}>Remove</button>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            )}
         </div>
     )
 }
