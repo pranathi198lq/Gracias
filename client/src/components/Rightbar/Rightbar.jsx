@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 import './Rightbar.css'
-import {Users} from '../../Data'
-import Online from '../Online/Online'
 import {AuthContext} from '../../context/AuthContext'
 import {Add, Remove} from '@mui/icons-material'
 import axios from 'axios'
+import {Link} from 'react-router-dom'
 
 
 export default function Rightbar({user}) {
@@ -12,6 +11,7 @@ export default function Rightbar({user}) {
   const PF= process.env.REACT_APP_PUBLIC_FOLDER; 
   const {user: currUser, dispatch} =useContext(AuthContext);
   const [follow, setFollow] = useState(false);
+  const [advice, setAdvice] = useState("");
   
 
   useEffect(()=>{
@@ -34,26 +34,46 @@ export default function Rightbar({user}) {
     setFollow(!follow);
   };
 
+  const fetchQuote= ()=>{
+    axios.get("https://api.adviceslip.com/advice").then((response)=>{
+      const {advice}= response.data.slip;
+      setAdvice(advice);
+      console.log(advice);
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+  }
+
+  useEffect(()=>{
+    fetchQuote();
+  }, []);
+
+
   const HomeRightbar= ()=>{
     return(
       <>
       <div className="bookcont">
           <img src={`${PF}book.png`} alt="" className='bookImg' />
           <div className="bookRight">
-            <div className='bookText'>2 new books added today!</div>
-            <div className="bookText1">Check them out!</div>
+            <div className='bookText'>Did you write your dairy today?</div>
+            <Link to={"/dairy/"+currUser.username} style={{textDecoration: "none", color: "blueviolet"}}>
+            <div className="bookText1">Let's do it!</div>
+            </Link>
           </div>
         </div>
         <div className="rightDay">
-          <div className='dayText'>Seize the day</div>
-          <img src={`${PF}daily/1.jpg`} alt="" className="dayImg" />
+          <p className='dayText'>Random is Fun!</p>
+          <div className="quote">{advice}</div>
+          <button className='quoteButton' onClick={fetchQuote}>More Fun</button>
+          {/* <img src={`${PF}daily/1.jpg`} alt="" className="dayImg" /> */}
         </div>
-        <h4 className="rightTitle">Online Friends</h4>
+        {/* <h4 className="rightTitle">Online Friends</h4>
         <ul className="rightList">
           {Users.map((u)=>(
             <Online key={u.id} user={u}/>
           ))}
-        </ul>
+        </ul> */}
       </>
     );
   };
@@ -72,16 +92,16 @@ export default function Rightbar({user}) {
         <div className="profileRightbar">
           <div className="profileImageContainer">
             {/* <img src={PF+user.profilePicture} alt="" className="bigProfileImg" /> */}
-            <img src={user.profilePicture || PF+"noPP.jpeg"} alt="" className="bigProfileImg" />
+            <img src={user.profilePicture? PF+user.profilePicture : PF+"noPP.jpeg"} alt="" className="bigProfileImg" />
             <div className="profileTextOverlay">
               <span className="profileImgText">{user.username}, {user.age}</span>
             </div>
           </div>
           <div className="rightbarInfo">
-            {/* <div className="rightbarInfoItem">
+            <div className="rightbarInfoItem">
               <span className="rightbarInfoKey">Age:</span>
               <span className="rightbarInfoValue">{user.age}</span>
-            </div> */}
+            </div>
             <div className="rightbarInfoItem">
               <span className="rightbarInfoKey">City:</span>
               <span className="rightbarInfoValue">{user.city}</span>
@@ -98,10 +118,6 @@ export default function Rightbar({user}) {
               <span className="rightbarInfoKey">Hobbies:</span>
               <span className="rightbarInfoValue">{user.hobbies}</span>
             </div>
-            {/* <div className="rightbarInfoItem">
-              <span className="rightbarInfoKey">Friends:</span>
-              <span className="rightbarInfoValue">{user.followers[0].username}</span>
-            </div> */}
           </div>
         </div>
       </>
