@@ -1,0 +1,45 @@
+.conversation {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .conversation:hover {
+    background-color: rgb(245, 243, 243);
+  }
+
+  .conversationImgContainer {
+    position: relative;
+  }
+  
+  .conversationImg {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+  }
+  
+  .conversationName {
+    font-weight: 500;
+  }
+
+  .conversationOnlineBadge {
+    width: 12px;
+    height: 12px;
+    background-color: limegreen;
+    border-radius: 50%;
+    position: absolute;
+    top: 7px;
+    right: 20px;
+    transform: translate(50%, -50%);
+    border: 2px solid white;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .conversationName {
+      display: none;
+    }
+  }
